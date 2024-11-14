@@ -13,12 +13,12 @@
             </column>
             <column name="dob" type="DATE"/>
             <column name="email" type="VARCHAR(255)"/>
-            <column name="is_admin" type="BOOLEAN">
+            <!-- <column name="is_admin" type="BOOLEAN">
                 <constraints nullable="false"/>
             </column>
             <column name="is_editor" type="BOOLEAN">
                 <constraints nullable="false"/>
-            </column>
+            </column> -->
             <column name="password_hash" type="VARCHAR(255)"/>
             <column name="registration_date" type="TIMESTAMP"/>
             <column name="username" type="VARCHAR(255)"/>

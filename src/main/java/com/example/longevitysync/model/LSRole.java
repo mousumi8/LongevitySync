@@ -14,6 +14,6 @@ public class LSRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Name", nullable = false, length = 50)
+    @Column(unique = true, columnDefinition = "citext")
     private String name;
 }

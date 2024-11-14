@@ -1,5 +1,7 @@
 package com.example.longevitysync.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +15,9 @@ public class LSUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
 
     @Column(name = "FIRST_NAME", nullable = false, length = 50)
     private String firstName;
@@ -29,8 +34,15 @@ public class LSUser {
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
-    @Column(name = "PASSWORD", nullable = false)
-    private String password;  // Assume this is already encrypted
+    @Column(name = "password", nullable = false)
+    private String password;  // Store the BCrypt hashed password
+
+    @Column(name = "created_date", nullable = false)
+    private LocalDateTime createdDate;
+
+    @Column(name = "updated_date")
+    private LocalDateTime updatedDate;
+
 
     @ManyToOne
     @JoinColumn(name = "ROLE_ID", nullable = false)

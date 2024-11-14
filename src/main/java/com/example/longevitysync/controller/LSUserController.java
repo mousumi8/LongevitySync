@@ -2,11 +2,13 @@ package com.example.longevitysync.controller;
 
 import com.example.longevitysync.model.LSUser;
 import com.example.longevitysync.repository.LSUserRepository;
+import com.example.longevitysync.util.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,13 +51,15 @@ public class LSUserController {
         Optional<LSUser> existingUser = userRepository.findById(id);
         if (existingUser.isPresent()) {
             LSUser user = existingUser.get();
-            // user.setUsername(updatedUser.getUsername());
             user.setEmail(updatedUser.getEmail());
-            user.setPassword(updatedUser.getPassword());
+            String hashedPassword = PasswordUtils.hashPassword(user.getPassword());
+            user.setPassword(hashedPassword);
+
+            // Set the created date to the current date and time
+            user.setCreatedDate(LocalDateTime.now());
             user.setFirstName(updatedUser.getFirstName());
             user.setLastName(updatedUser.getLastName());
-            // user.setRoles(updatedUser.getRoles()); // Assuming roles are part of the user entity
-
+            user.setRole(updatedUser.getRole());
             LSUser savedUser = userRepository.save(user);
             return new ResponseEntity<>(savedUser, HttpStatus.OK);
         } else {
