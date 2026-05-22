@@ -16,5 +16,12 @@ public class GreetingController {
         response.put("message", "Hello, " + name + "!");
         return response;
     }
+
+    @GetMapping("/api/greeting")
+    public Map<String, String> greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Hello, " + name + "!");
+        return response;
+    }
 }
 
